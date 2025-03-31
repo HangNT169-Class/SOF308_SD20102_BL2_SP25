@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import ButttonComponent from './component/ButttonComponent.vue'
+import ComponentVModel from './component/ComponentVModel.vue'
 
 const nhanViens = ref([
   {
@@ -297,6 +298,15 @@ const nvs = ref([
   },
 ])
 const number1 = ref(5)
+const inscreaseValue = () => {
+  // tang gia tri cua bien number len 1 don vi khi click
+  number1.value = number1.value + 1
+}
+const username = ref('hangnt169')
+const password = ref('123456')
+const updateCha = () => {
+  username.value = 'NguyenVV4'
+}
 </script>
 <template>
   <div>
@@ -370,7 +380,8 @@ const number1 = ref(5)
     <!-- <buttton-component /> -->
     <!-- <p>Day la thang cha</p> -->
     <!-- <ComponentA /> -->
-    <!-- Khi muon truyen du lieu => CHA SANG CON 
+    <!-- Khi muon truyen du lieu 
+     => CHA SANG CON 
      CO 1 CHIEU (TU CHA SANG CON)
      TRUYEN TU APP -> BUTTONCOMPONENT
       -->
@@ -378,7 +389,27 @@ const number1 = ref(5)
      Muon truyen kieu du lieu khac thi them :truoc ten
       -->
     <p>Cha: {{ number1 }}</p>
-    <ButttonComponent countValue="Xin chao - Truyen gia tri cha - con" :count1Value="number1" />
+    <!-- <button @click="inscreaseValue">Click me</button> -->
+    <!-- Truyen event/bien sang thang con
+      ten bien = gia tri
+      event: @ => defineEmits
+      bien: => defineProps
+      -->
+    <ButttonComponent
+      countValue="Xin chao - Truyen gia tri cha - con"
+      :count1Value="number1"
+      @increase="inscreaseValue"
+    />
+  </div>
+  <div>
+    <!-- VueJS 3.4 -->
+    <!-- Binding du lieu 2 chieu
+      cha <=> con: v-model & defineModel
+       -->
+    <h1>Component V-model</h1>
+    <p>Cha: {{ username }} -- {{ password }}</p>
+    <ComponentVModel v-model:u1="username" v-model:p1="password" />
+    <button @click="updateCha">Update cha</button>
   </div>
 </template>
 <style>
