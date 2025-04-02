@@ -1,9 +1,14 @@
 <template>
   <section>
     <h1>Đây là trang máy tính</h1>
-    <h1>Thêm máy tính</h1>
-    <FormMayTinhComponent v-model:mayTinh="newMayTinh" />
-    <button type="button" class="btn btn-outline-success" @click="addMayTinh()">Add</button>
+    <h1>{{ isUpdate ? 'Cập nhật máy tính' : 'Thêm máy tính' }}</h1>
+    <FormMayTinhComponent v-model:mayTinh1="newMayTinh" />
+    <button type="button" class="btn btn-outline-success" v-show="!isUpdate" @click="addMayTinh()">
+      Add
+    </button>
+    <button type="button" class="btn btn-outline-success" v-if="isUpdate" @click="updateMayTinh()">
+      Update
+    </button>
     <table class="table container">
       <thead>
         <tr>
@@ -22,7 +27,9 @@
             <td>{{ mayTinh.gia }}</td>
             <td>{{ mayTinh.moTa }}</td>
             <td>
-              <button type="button" class="btn btn-outline-info">Detail</button>
+              <button type="button" class="btn btn-outline-info" @click="detailMayTinh(mayTinh)">
+                Detail
+              </button>
               <button
                 type="button"
                 class="btn btn-outline-danger"
@@ -180,6 +187,13 @@ const deleteMayTinh = (id) => {
   // B2: Xoa doi tuong
   listMayTinh.value.splice(index, 1)
 }
+const resetForm = () => {
+  newMayTinh.value = {
+    ten: '',
+    gia: 0,
+    moTa: '',
+  }
+}
 // Add & Update
 const isUpdate = ref(false)
 // isUpdate = true => Update
@@ -196,6 +210,25 @@ const addMayTinh = () => {
     id: listMayTinh.value.length + 1,
     ...newMayTinh.value, /// SAO CHEP DU LIEU TU OBJECT NEW MAY TINH VE OBJECT MOI
   })
-  resertData()
+  resetForm()
+}
+// Tao ra 1 bien vi tri cua doi tuong muon update
+const viTriUpdate = ref(-1)
+const detailMayTinh = (item) => {
+  // Update lai gia tri cua bien isUpdate
+  isUpdate.value = true
+  // Gan gia tri detail cho bien newMayTinh
+  newMayTinh.value = { ...item }
+  // Set vi tri can update
+  viTriUpdate.value = listMayTinh.value.findIndex((mt) => mt.id === item.id)
+}
+const updateMayTinh = () => {
+  listMayTinh.value[viTriUpdate.value] = { ...newMayTinh.value }
+  // reset form
+  resetForm()
+  // Sau khi update => reset isUpdate
+  isUpdate.value = false
+  // reset vi tri update
+  viTriUpdate.value = -1
 }
 </script>

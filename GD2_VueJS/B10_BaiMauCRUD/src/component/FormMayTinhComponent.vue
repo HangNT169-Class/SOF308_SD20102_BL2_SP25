@@ -7,7 +7,7 @@
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          v-model="mayTinh.ten"
+          v-model="mayTinh1.ten"
         />
       </div>
       <div class="mb-3">
@@ -16,7 +16,7 @@
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          v-model="mayTinh.gia"
+          v-model="mayTinh1.gia"
         />
       </div>
       <div class="mb-3">
@@ -25,34 +25,18 @@
           type="text"
           class="form-control"
           id="exampleFormControlInput1"
-          v-model="mayTinh.moTa"
+          v-model="mayTinh1.moTa"
         />
       </div>
     </form>
   </section>
 </template>
 <script setup>
-defineModel('mayTinh', {
-  default: () => ({
+defineModel('mayTinh1', {
+  default: {
     ten: '',
     gia: 0,
     moTa: '',
-  }),
+  },
 })
 </script>
-<!-- <template>
-  <form>
-    Ten may tinh: <input type="text" v-model.trim="mayTinh.ten" /> <br />
-    Gia: <input type="number" v-model="mayTinh.gia" /> <br />
-    Mo ta: <input type="text" v-model="mayTinh.moTa" /> <br />
-  </form>
-</template>
-<script setup>
-defineModel('mayTinh', {
-  default: () => ({
-    ten: '',
-    gia: 0,
-    moTa: '',
-  }),
-})
-</script> -->
